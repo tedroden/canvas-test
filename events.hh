@@ -5,15 +5,15 @@
 #include "linkedlist.hh"
 
 struct _timed_event {	
-     double interval;
-     int times;
-     int type;
-     void *data;
+  double interval;
+  int times;
+  int type;
+  void *data;
 
-     void (*func);
-     void *obj;
+  void (*func);
+  void *obj;
      
-     double __time;  
+  double __time;  
 };
 typedef struct _timed_event TimedEvent;
 
@@ -22,20 +22,20 @@ class events {
   
   
 public:
-     events();
-     ~events();
+  events();
+  ~events();
      
-     void set_timed(int times, double interval,   
-		    void *object, void (*f), void *data);
+  void set_timed(int times, double interval,   
+				 void *object, void (*f), void *data);
      
-     void run_timed(int);
+  void run_timed(int);
   
 private:
-  double events::get_time();
+  double get_time();
   
-     LinkedList<TimedEvent> *_timed_events;
-     LinkedListIterator<TimedEvent> _timed_events_it;
-
-     double last_time;
+  LinkedList<TimedEvent> *_timed_events;
+  LinkedListIterator<TimedEvent> _timed_events_it;
+  
+  double last_time;
 };
 #endif //  __EVENTS_HH

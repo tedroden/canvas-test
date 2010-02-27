@@ -257,105 +257,108 @@ void canvas::canvas_event_check() {
 
 void canvas::x11_event_check() {
   XEvent ev;
+  Atom deleteAtom;
   do {
     
     XNextEvent(dis, &ev);
     switch (ev.type) {
       
       
-     case ClientMessage:
-      Atom deleteAtom = XInternAtom(dis, "WM_DELETE_WINDOW", 0);
+	case ClientMessage:
+	  
+	  deleteAtom = XInternAtom(dis, "WM_DELETE_WINDOW", 0);
       if((Atom) ev.xclient.data.l[0] == deleteAtom) {
-	canvas_running = false;
+		canvas_running = false;
       }
       else {
-	fprintf(stderr, "Not a delete, it's format is  %d!\n", ev.xclient.format);
-	fprintf(stderr, "Not a delete, it's format is  %ld!\n", ev.xclient.data.l[0]);
+		fprintf(stderr, "Not a delete, it's format is  %d!\n", ev.xclient.format);
+		fprintf(stderr, "Not a delete, it's format is  %ld!\n", ev.xclient.data.l[0]);
       }
       break;
 
-     case PropertyNotify:
+	case PropertyNotify:
       break;
       
-     case UnmapNotify:
+	case UnmapNotify:
       break;
-     case DestroyNotify:
+	case DestroyNotify:
       fprintf(stderr, "DestroyNotify\n");
       fflush(stderr);
-//      delete (this);
+	  //      delete (this);
       break;
       
-     case Expose:
+	case Expose:
        
-       taint_area(ev.xexpose.x, ev.xexpose.y, ev.xexpose.width, ev.xexpose.height);
+	  taint_area(ev.xexpose.x, ev.xexpose.y, ev.xexpose.width, ev.xexpose.height);
        
-       break;
+	  break;
       
-     case ButtonPress:
+	case ButtonPress:
       mouse->click_x = ev.xbutton.x;
       mouse->click_y = ev.xbutton.y;
 
       
       switch(ev.xbutton.button) {
-       case 1:	 
-	mouse->button1_down = true;
-	break;
-       case 2:
-	mouse->button2_down = true;
-	break;
-       case 3:
-	mouse->button3_down = true;
-	break;
-       case 4:
-	mouse->button4_down = true;
-	break;
-       case 5:
-	mouse->button5_down = true;
-	break;
+	  case 1:	 
+		mouse->button1_down = true;
+		break;
+	  case 2:
+		mouse->button2_down = true;
+		break;
+	  case 3:
+		mouse->button3_down = true;
+		break;
+	  case 4:
+		mouse->button4_down = true;
+		break;
+	  case 5:
+		mouse->button5_down = true;
+		break;
       }
 
 
       if(pointer_canvas_item) {
-	pointer_canvas_item->event_button_press(ev.xbutton.button);
+		pointer_canvas_item->event_button_press(ev.xbutton.button);
       }	
       
 
-      fprintf(stderr, "ButtonPress (button: %d) (%d, %d)\n", ev.xbutton.button, mouse->click_x, mouse->click_y);
+      fprintf(stderr, "ButtonPress (button: %d) (%d, %d)\n", 
+			  ev.xbutton.button, mouse->click_x, mouse->click_y);
       break;
       
-     case ButtonRelease:
+	case ButtonRelease:
 
        
       switch(ev.xbutton.button) {
-       case 1:
-	 mouse->button1_down = false;
-	 break;
+	  case 1:
+		mouse->button1_down = false;
+		break;
       case 2:
-	mouse->button2_down = false;
-	render(true);
-	break;
-       case 3:
-	mouse->button3_down = false;
-	break;
-       case 4:
-	mouse->button4_down = false;
-	break;
-       case 5:
-	mouse->button5_down = false;
-	break;
+		mouse->button2_down = false;
+		render(true);
+		break;
+	  case 3:
+		mouse->button3_down = false;
+		break;
+	  case 4:
+		mouse->button4_down = false;
+		break;
+	  case 5:
+		mouse->button5_down = false;
+		break;
       }
 
       if(pointer_canvas_item) {
-	pointer_canvas_item->event_button_release(ev.xbutton.button);
+		pointer_canvas_item->event_button_release(ev.xbutton.button);
       }
       
       break;
-     case MotionNotify:
-       mouse->last_x = mouse->current_x;
-       mouse->last_y = mouse->current_y;
-       mouse->current_x = ev.xmotion.x;
-       mouse->current_y = ev.xmotion.y;      
-       //       fprintf(stderr, "MotionNotify (x: %d, y: %d)\n", mouse->current_x, mouse->current_y);
+	case MotionNotify:
+	  mouse->last_x = mouse->current_x;
+	  mouse->last_y = mouse->current_y;
+	  mouse->current_x = ev.xmotion.x;
+	  mouse->current_y = ev.xmotion.y;      
+	  //       fprintf(stderr, "MotionNotify (x: %d, y: %d)\n", mouse->current_x, mouse->current_y);
       break;      
     }
   }

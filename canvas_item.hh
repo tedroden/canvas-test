@@ -48,8 +48,8 @@ public:
   int get_h() { return (h); };
    
   void prepare();   
-   virtual void render() { return(render(true)); }
-   virtual void render(bool) {};
+  virtual void render() { return(render(true)); }
+  virtual void render(bool) {};
 
   
   // set by the canvas object. 
@@ -63,13 +63,13 @@ public:
   bool has_pointer () { return(_has_pointer); };
   
 	
-void canvas_item::set_action_button_click(int button, void *object, void (*f), int data_type, void *data, int data_size);
+  void set_action_button_click(int button, void *object, void (*f), int data_type, void *data, int data_size);
 
 protected:
 
   // EVENTS
-	void event_pointer_enter();
-	void event_pointer_leave();
+  void event_pointer_enter();
+  void event_pointer_leave();
 
   canvas *can;
   /* coords */
