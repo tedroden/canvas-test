@@ -9,7 +9,7 @@ PREFIX_THEMES  = $(PREFIX_SHARE)/themes/slap
 
 CC                 = g++
 IMLIB2_CONFIG      = imlib2-config
-FREETYPE2_CONFIG   = freetype-config
+FREETYPE2_CONFIG   = pkg-config freetype2 --cflags
 XML2_CONFIG        = xml2-config
 CP 		   = cp -vf
 INSTALL		   = install

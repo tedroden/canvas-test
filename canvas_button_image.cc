@@ -4,7 +4,7 @@
 #include "canvas_image.hh"
 #include "canvas.hh"
 
-
+#include <cstring>
 #include <iostream>
 
 canvas_button_image::canvas_button_image(canvas *c) :

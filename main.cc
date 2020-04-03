@@ -6,6 +6,7 @@
 #include "canvas_image.hh"
 #include <stdio.h>
 #include <string>
+#include <cstring>
 
 canvas *can = new canvas();
 

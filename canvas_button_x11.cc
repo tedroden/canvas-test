@@ -2,7 +2,7 @@
 #include "canvas_item.hh"
 #include "canvas_button_x11.hh"
 #include "canvas.hh"
-
+#include <cstring>
 #include <iostream>
 
 canvas_button_x11::canvas_button_x11(canvas *c) :

@@ -2,6 +2,7 @@
 #include "canvas_item.hh"
 #include "canvas_item.hh"
 #include <iostream>
+#include <cstring>
 
 canvas_item::canvas_item(canvas *c) {
   x = y = w = h = 0;
